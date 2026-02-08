@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.fashionxg.bridge</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/sunzemuzi/Downloads/fashionxg-local/run_lazy.sh</string>
+    </array>
+
+    <!-- 登录后自动启动 -->
+    <key>RunAtLoad</key>
+    <true/>
+
+    <!-- 保持运行 -->
+    <key>KeepAlive</key>
+    <dict>
+        <!-- 只在有网络时运行 -->
+        <key>NetworkState</key>
+        <true/>
+    </dict>
+
+    <!-- 允许系统节流（熄屏时暂停） -->
+    <key>ProcessType</key>
+    <string>Background</string>
+
+    <key>LowPriorityBackgroundIO</key>
+    <true/>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/fashionxg.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/tmp/fashionxg.log</string>
+</dict>
+</plist>

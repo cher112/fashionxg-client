@@ -1,0 +1,51 @@
+{
+  "_comment": "This is a TEMPLATE for your ComfyUI workflow in API format",
+  "_instructions": [
+    "1. Open ComfyUI at http://127.0.0.1:8188",
+    "2. Build your workflow with: LoadImage -> WD14Tagger -> Florence2 -> AestheticScore",
+    "3. Enable Dev Mode in Settings",
+    "4. Click 'Save (API Format)' and save as 'fashion_tagger_api.json'",
+    "5. Replace this template file with your exported workflow"
+  ],
+  "_required_nodes": {
+    "LoadImage": "Input node - loads the image to process",
+    "WD14Tagger": "Extracts fashion tags (material, style, details)",
+    "Florence2": "Generates natural language description",
+    "AestheticScore": "Scores image quality (0-10 scale)"
+  },
+  "_example_structure": {
+    "1": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": "path/to/image.jpg"
+      }
+    },
+    "2": {
+      "class_type": "WD14Tagger",
+      "inputs": {
+        "image": ["1", 0],
+        "threshold": 0.35,
+        "model": "wd-v1-4-moat-tagger-v2"
+      }
+    },
+    "3": {
+      "class_type": "Florence2",
+      "inputs": {
+        "image": ["1", 0],
+        "task": "detailed_caption"
+      }
+    },
+    "4": {
+      "class_type": "AestheticScore",
+      "inputs": {
+        "image": ["1", 0],
+        "model": "sac+logos+ava1-l14-linear.pth"
+      }
+    }
+  },
+  "_output_format": {
+    "tags": "List of tags from WD14Tagger",
+    "caption": "Description from Florence2",
+    "score": "Aesthetic score (0-10)"
+  }
+}

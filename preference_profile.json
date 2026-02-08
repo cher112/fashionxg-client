@@ -1,0 +1,41 @@
+{
+  "liked_tags": [
+    "silk",
+    "minimalist",
+    "pleated",
+    "high_heels",
+    "elegant",
+    "modern",
+    "A-line",
+    "asymmetric",
+    "clean_lines",
+    "sophisticated"
+  ],
+  "disliked_tags": [
+    "text",
+    "watermark",
+    "meme",
+    "blurry",
+    "low_quality",
+    "screenshot",
+    "street",
+    "casual",
+    "oversized"
+  ],
+  "liked_tag_frequencies": {
+    "silk": 15,
+    "minimalist": 12,
+    "pleated": 10,
+    "high_heels": 8,
+    "elegant": 14
+  },
+  "disliked_tag_frequencies": {
+    "text": 20,
+    "watermark": 18,
+    "street": 5
+  },
+  "liked_vectors": [],
+  "total_liked": 25,
+  "total_disliked": 15,
+  "updated_at": "2026-02-08T02:10:00"
+}
