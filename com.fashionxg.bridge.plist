@@ -7,28 +7,17 @@
 
     <key>ProgramArguments</key>
     <array>
-        <string>/bin/bash</string>
-        <string>/Users/sunzemuzi/Downloads/fashionxg-local/run_lazy.sh</string>
+        <string>/Users/sunzemuzi/.local/bin/fashionxg-start.sh</string>
     </array>
 
-    <!-- 登录后自动启动 -->
     <key>RunAtLoad</key>
     <true/>
 
-    <!-- 保持运行 -->
     <key>KeepAlive</key>
-    <dict>
-        <!-- 只在有网络时运行 -->
-        <key>NetworkState</key>
-        <true/>
-    </dict>
-
-    <!-- 允许系统节流（熄屏时暂停） -->
-    <key>ProcessType</key>
-    <string>Background</string>
-
-    <key>LowPriorityBackgroundIO</key>
     <true/>
+
+    <key>ThrottleInterval</key>
+    <integer>10</integer>
 
     <key>StandardOutPath</key>
     <string>/tmp/fashionxg.log</string>

@@ -1,31 +1,34 @@
 #!/bin/bash
-# FashionXG Lazy Runner
-# 登录自动启动，熄屏暂停，亮屏继续
+# FashionXG Auto Runner
+# 开机自启，caffeinate 防休眠中断
 
 cd /Users/sunzemuzi/Downloads/fashionxg-local
 source venv/bin/activate
 
 # 确保ComfyUI运行
 start_comfyui() {
-    if ! curl -s http://127.0.0.1:8188 > /dev/null 2>&1; then
+    if ! curl -s http://127.0.0.1:8188/system_stats > /dev/null 2>&1; then
         echo "$(date): 启动ComfyUI..."
         cd ~/ComfyUI && source venv/bin/activate
-        python main.py --listen 127.0.0.1 --port 8188 &
-        sleep 15
+        nohup python main.py --listen 127.0.0.1 --port 8188 > /tmp/comfyui.log 2>&1 &
+        echo "$(date): 等待ComfyUI就绪..."
+        for i in $(seq 1 30); do
+            sleep 2
+            if curl -s http://127.0.0.1:8188/system_stats > /dev/null 2>&1; then
+                echo "$(date): ComfyUI 已就绪"
+                break
+            fi
+        done
         cd /Users/sunzemuzi/Downloads/fashionxg-local
         source venv/bin/activate
+    else
+        echo "$(date): ComfyUI 已在运行"
     fi
 }
 
-# 主循环
 echo "$(date): FashionXG Bridge 启动"
 
-while true; do
-    start_comfyui
+start_comfyui
 
-    echo "$(date): 开始处理一批图片..."
-    python comfy_bridge.py --once --batch-size 50 --server https://design.chermz112.xyz
-
-    echo "$(date): 休息60分钟..."
-    sleep 3600
-done
+# caffeinate -i 防止休眠杀进程，持续模式运行
+exec caffeinate -i python comfy_bridge.py --batch-size 200 --sleep 10 --server https://design.chermz112.xyz
